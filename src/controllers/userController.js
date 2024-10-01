@@ -1,7 +1,7 @@
-const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   const { name, password, university, major, email, contact } = req.body
 
   try {
@@ -14,7 +14,7 @@ const createUser = async (req, res) => {
   }
 }
 
-const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany()
     res.json(users)
@@ -23,7 +23,7 @@ const getAllUsers = async (req, res) => {
   }
 }
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   const { id } = req.params
   const { name, password, university, major, email, contact } = req.body
 
@@ -38,7 +38,7 @@ const updateUser = async (req, res) => {
   }
 }
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const { id } = req.params
 
   try {
@@ -49,12 +49,4 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error deleting user' })
   }
-}
-
-// Mengekspor fungsi
-module.exports = {
-  createUser,
-  getAllUsers,
-  updateUser,
-  deleteUser,
 }
