@@ -11,10 +11,10 @@ export const getAllJobs = async (req, res) => {
 }
 
 export const getJobById = async (req,res) => {
-    const id = req.id;
+    const id = req.params.id;
 
     try{
-        const job = await prisma.user.findUnique({
+        const job = await prisma.job.findUnique({
             where : { id: Number(id) },
         })
 
@@ -25,7 +25,7 @@ export const getJobById = async (req,res) => {
         res.json(job)
 
     }catch(error){
-        res.status(500).json({error : 'error fetching jobs'})
+        res.status(500).json({error : 'error fetching jobs' + error})
     }
 }
 
