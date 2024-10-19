@@ -56,7 +56,7 @@ export const updateJob = async(req, res) => {
     if (!school_id || !title || !description || !requirements || !salary) {
         return res.status(400).json({ error: 'All fields are required.' });
     }
-    
+
     try {
         const job = await prisma.job.update({
             where : { id : Number(id) },
@@ -70,7 +70,7 @@ export const updateJob = async(req, res) => {
 }
 
 export const deleteJob = async(req,res) => {
-    const id = req.params 
+    const id = req.params.id
 
     try{
         await prisma.job.delete({
@@ -78,6 +78,6 @@ export const deleteJob = async(req,res) => {
         })
         res.status(201).send()
     }catch(error){
-        res.status(500).json({error: 'Error deleting job'})
+        res.status(500).json({error: 'Error deleting job' + error})
     }
 }
