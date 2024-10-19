@@ -33,13 +33,19 @@ export const createJob = async(req, res) => {
     try{
         //school id must replace with token and create function from helper
         const { school_id, title, description,requirements,salary } = req.body
+
+        // validate the req body
+        if (!school_id || !title || !description || !requirements || !salary) {
+            return res.status(400).json({ error: 'All fields are required.' });
+        }
+
         const job = await prisma.job.create({
             data : { school_id, title, description,requirements,salary }
         })
         res.status(201).json(job)
 
     }catch(error){
-        res.status(500).json({error : 'error creating job'})
+        res.status(500).json({error : 'error creating job' + error})
     }
 }
 
