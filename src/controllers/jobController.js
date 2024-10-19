@@ -50,9 +50,13 @@ export const createJob = async(req, res) => {
 }
 
 export const updateJob = async(req, res) => {
-    const id = req.params
+    const id = req.params.id
     const { school_id, title, description,requirements,salary } = req.body
 
+    if (!school_id || !title || !description || !requirements || !salary) {
+        return res.status(400).json({ error: 'All fields are required.' });
+    }
+    
     try {
         const job = await prisma.job.update({
             where : { id : Number(id) },
